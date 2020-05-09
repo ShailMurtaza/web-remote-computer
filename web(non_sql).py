@@ -266,7 +266,7 @@ def test():
 # error handler section starts
 @app.errorhandler(404)
 def page_not_found(e):
-    return "<h1><center>Your page is not found duffer<br>Ha ha ha !!!</center></h1>", 404
+    return "<h1><center>Your page is not found<br>Ha ha ha !!!</center></h1>", 404
 
 
 @app.errorhandler(405)
