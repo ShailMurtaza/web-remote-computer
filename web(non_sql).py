@@ -189,9 +189,9 @@ def password():
         passw = request.form['pasw']
         time.sleep(3)
         shail = ('"' + wd + "\\static\\sys-gamer.exe" + '" ' + passw)
-        print (shail)
-        changed = os.system(shail)
-        if changed == 0:  # True
+        changed = (check_output(shail).decode())
+        print(changed)
+        if changed == u'ha\r\n':  # True
             return html_pass2
         else:  # False
             return html_pass1
