@@ -1,0 +1,4 @@
+flask
+pyautogui
+pymysql
+flask-sqlalchemy
