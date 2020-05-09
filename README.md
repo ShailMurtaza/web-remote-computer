@@ -24,7 +24,7 @@ By using this you will be able to remotely control computer using web browser.
 <h3>Usage</h3>
 If you does not wants to use user and password authentication then this project has web(non_sql) version.<br>
 You can copy and paste "run.vbs" file at Windows startup folder to start everything at Windows background<br>
-<h5>Open web app go to your browser and enter your IP address i.e http://127.0.0.1 </h5>
+<h5>Open web app and then go to your browser and enter your IP address i.e http://127.0.0.1 </h5>
 <hr>MYSQL command to create database compatible with this web app<br>
 create database test;<br>
 DROP TABLE IF EXISTS `username_password`;<br>
