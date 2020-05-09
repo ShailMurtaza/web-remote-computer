@@ -23,9 +23,9 @@ By using this you will be able to remotely control computer using web browser.
 </ul>
 <h3>Usage</h3>
 If you does not wants to use user and password authentication then this project has web(non_sql) version.<br>
-<hr>MYSQL command to create database compatible with this web app
-1. create database test;<br>
-2. DROP TABLE IF EXISTS `username_password`;<br>
+<hr>MYSQL command to create database compatible with this web app<br>
+create database test;<br>
+DROP TABLE IF EXISTS `username_password`;<br>
 CREATE TABLE IF NOT EXISTS `username_password` (<br>
   `Id` int(11) NOT NULL AUTO_INCREMENT,<br>
   `Username` varchar(55) DEFAULT NULL,<br>
@@ -33,5 +33,6 @@ CREATE TABLE IF NOT EXISTS `username_password` (<br>
   `Date` datetime NOT NULL DEFAULT current_timestamp(),<br>
   PRIMARY KEY (`Id`)<br>
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;<br>
-Use above command in your mysql server to create databases
+Use above command in your mysql server to create databases<br>
 <hr>
+You can also import my "test.sql" file using PhpMyAdmin
