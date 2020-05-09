@@ -1,0 +1,21 @@
+<html><head><title>Mouse Keyboard</title></head><body>
+<center><h2>Mouse movement</h2>
+<h4>Current screen "{{ screen_resolution }}" resolution</h4>
+<h3>USAGE: </h3><h4>If your x-coordinate is 920 and y-cordinate is 230 then mouse cursor wll move to point 920x230 of screen</h4>
+<h4>If your x-coordinate is 920,560 and y-cordinate is 230,129 then mouse cursor wll move to point 920x230 first and then to point 560x129 of screen</h4>
+
+<form method="post" action=mouse>
+<input type="text" name="x-cor" placeholder="Enter x-coordinate"><br>
+<input type="text" name="y-cor" placeholder="Enter y-coordinate"><br>
+<input type=submit value=Move></form>
+<button type="button" onclick="location.href='click';">Click</button><br><br><hr>
+
+<h2>Keyboard controller</h2>
+<h4>type anythig to write</h4>
+<form method="post" action="keyboard">
+What you wants to write<input type="text" name="write"><br>
+How many times you wants to press<input type="text" name="presses"><br>
+<input type="submit" value="Write"></form><br><br>
+
+<button type="button" onclick="location.href='secret-zone';">Go back</button>
+</center></body></html>

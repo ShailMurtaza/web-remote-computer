@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  position: relative;
+  background-color: #4CAF50;
+  border: none;
+  font-size: 20px;
+  color: #FFFFFF;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+</style>
+</head>
+<body>
+<center>
+
+<button class="button" onclick="location.href=('static/snake_pc');">Snake Game</button><br><br>
+<button class="button" onclick="location.href=('static/hexgl');">HexGL space</button><br><br>
+<button class="button" onclick="location.href=('static/clumsy-bird-master/clumsy_bird');">Clumsy Bird</button><br><br>
+<button class="button" onclick="location.href=('static/radius_raid');">Radius Raid</button><br><br>
+<button class="button" onclick="location.href=('/static/pacman-canvas-master/pacman_canvas');">pacman Canvas</button><br><br>
+<button class="button" onclick="location.href=('/static/popup');">Pop UP!</button><br><br>
+<button class="button" onclick="location.href=('/static/hextris-gh-pages/hextris');">Hextris</button><br><br>
+<button class="button" onclick="location.href=('secret-zone');">Go back</button><br><br>
+
+
+
+</center>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<html><head><link rel="icon" href="static/favicon.ico">
+<head><title>Shutdown</title></head>
+<body bgcolor=#d3d3d3 #65b3b3 #fff5bd>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href= "{{ url_for('static',filename='tangerine') }}">
+<link href= "{{ url_for('static',filename='merienda') }}" rel='stylesheet'>
+<!--link href='tangerine' rel='stylesheet'>
+<script>alert("Created by shail!!\n  HA ha ha ");</script-->
+<script>
+var shail="{{ shail }}";
+{{ alert }}
+</script>
+<style>
+.w3-tangerine {
+  font-family: "Tangerine", serif;
+}
+.fon {
+ font-family: 'Merienda';font-size: 22px;
+}
+.butt {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.butt1 {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button {
+  display: inline-block;
+  padding: 25px 90px;
+  font-size: 22px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ec1313;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+}
+
+.button:hover {background-color: #365aeb}
+
+.button:active {
+  background-color: #00ff00;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+    <center>
+    <br><br><div class="w3-tangerine"><center><font color=green size=20>Shutdown Computer Ha ha ha!</font></center></div><hr size=6 color=red width="60%">
+    <table><form method=post action=mesg><td><input style="font-size:12;height:40" type="text" name="mesgg" size="22" placeholder="Enter your message here..."></input></td><td><input type=submit class="butt butt1" value="Send message"></input></td></form></table>
+        <table>
+    <hr size=9 color=red width="60%">
+    <form method="post" action="time"><tr><td>
+    <input name="time" placeholder="Seconds" style="font-size:12;height:40" size="50" type="number" value="0"><--- seconds</input>
+    </tr></td>
+    <tr><td>
+    <input type="submit" value="Shutdown" class="button"></input>
+    </tr></td></form>
+    </table>
+    <hr size=9 width="60%" color=blue></center>
+<center><font size=5 color=blue>60 seconds = 1 minute</font></center>
+<center><font size=5 color=blue>120 seconds = 2 minutes</font></center>
+<center><font size=5 color=blue>3600 seconds = 1 hour</font></center>
+<form action="secret-zone"><center><input type="submit" value="secret-zone"></input></center></form>
+<form action="logout"><center><input type="submit" value="Logout"></input></center></form>
+<div class="fon"><center><font color=green size=20>-->Created by Shail--< </font></center></div>
+
+</body>
+</html>

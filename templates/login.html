@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" /-->
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+<title>Login / signup form</title>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+<link rel='stylesheet' href='/static/martial_login/login.css'>
+
+<!--script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script-->
+
+</head>
+<body translate="no">
+
+
+<!--div class="pen-title">
+<h1>Material Login Form</h1><span>Pen <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
+</div-->
+<!--div class="rerun"><a href="">Rerun Pen</a></div--><br><br><br>
+<div class="container">
+<div class="card"></div>
+<div class="card">
+<h1 class="title">Login</h1><font size=5><span style="background-color:#20b5d5;">{{ flash }}</span></font>
+<form action=login method=post>
+<div class="input-container">
+<input type="text" id="#{label}" required="required" name="username" />
+<label for="#{label}">Username</label>
+<div class="bar"></div>
+</div>
+<div class="input-container">
+<input type="password" id="#{label}" required="required" name="password" />
+<label for="#{label}">Password</label>
+<div class="bar"></div>
+</div>
+<div class="button-container">
+<button><span>Go</span></button>
+</div>
+<div class="footer"><a href="#">Forgot your password?</a></div>
+</form>
+</div>
+
+<!------------------------------------------------->
+<!------------------------------------------------->
+
+<div class="card alt">
+<div class="toggle"></div>
+<h1 class="title">Register
+<div class="close"></div>
+</h1>
+<form method=post action="signup">
+<div class="input-container">
+<input type="text" required="required"name="username" />
+<label for="#{label}">Username</label>
+<div class="bar"></div>
+</div>
+<div class="input-container">
+<input type="password" required="required" name="password" />
+<label for="#{label}">Password</label>
+<div class="bar"></div>
+</div>
+<div class="input-container">
+<input type="password" id="#{label}" required="required" name="passwordr" />
+<label for="#{label}">Repeat Password</label>
+<div class="bar"></div>
+</div>
+<div class="button-container">
+<button><span>Next</span></button>
+</div>
+</form>
+</div>
+</div>
+<a id="portfolio" href="http://andytran.me/" title="View my portfolio!"><i class="fa fa-link"></i></a>
+<a id="codepen" href="https://codepen.io/andytran/" title="Follow me!"><i class="fa fa-codepen"></i></a>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script id="rendered-js">
+$('.toggle').on('click', function () {
+  $('.container').stop().addClass('active');
+});
+
+$('.close').on('click', function () {
+  $('.container').stop().removeClass('active');
+});
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>

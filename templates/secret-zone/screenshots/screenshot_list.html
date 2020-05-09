@@ -1,0 +1,34 @@
+<html><head><title>List of screenshots</title></head>
+<style>
+ol {
+  list-style-type: none;
+  margin: 5;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: #111111;
+}
+hr.new5 {
+  border: 4px solid blue;
+  border-radius: 5px;
+}
+</style>
+<body>
+<h3>This is List of captured screenshots</h3>
+<hr color="blue" class="new5"><hr color=red height="100px">
+<br><ol type="1">
+    {% for file in files %}
+    <li><a href="{{ file }}">{{ file }}</a></li>
+    {% endfor %}
+</ol><br>
+<hr color=red height="100px"><hr color="blue" class="new5">
+</body>
