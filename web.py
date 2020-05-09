@@ -451,4 +451,4 @@ def page(e):
 
 if __name__ == '__main__':
     app.secret_key = "secretkey"
-    app.run(debug=True, host="0.0.0.0", port=81)
+    app.run(debug=True, host="0.0.0.0", port=80)
