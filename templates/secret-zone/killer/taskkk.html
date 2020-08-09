@@ -1,7 +1,20 @@
-<html><head><title>task Killer</title></head><body>
-
-<pre>{{ cmdd }}</pre>
-<form action=killer method=post><br>
-<input type=number name=pid placeholder="Enter pid">
-<input type="submit" value="Kill" style="height:40"><button type="button" onclick="location.href='secret-zone';">Go back</button></form>
+<html><head><title>task Killer</title>
+<style media="screen">
+  th {width: 30%;}
+  button {width: 100%;}
+  table {text-align: center;}
+</style>
+</head>
+<body>
+  <table border=1 align="center">
+    <tr>
+      <th>Process Name</th><th>Mem Usage</th><td>KILL</td>
+    </tr>
+    {%for i in cmdd%}
+    <tr>
+      <th>{{i[0]}}</th><td>{{i[2]}}</td>
+                      <td><button type="button" onclick="location.href='killer/{{i[1]}}';">KILL</button></td>
+    </tr>
+    {%endfor%}
+  </table>
 </body></html>
