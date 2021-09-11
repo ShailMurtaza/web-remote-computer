@@ -1,4 +1,4 @@
-'This script is for running web.py aand mysqld.exe ad background
+'This script is for running web.py and mysqld.exe at background
 'Create shortcut of this file at startup folder of windows to start it at startup at background 
 Set WshShell = CreateObject("WScript.Shell")
 WshShell.Run chr(34) & "web.py" & Chr(34), 0
